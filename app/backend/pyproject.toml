@@ -1,0 +1,17 @@
+[project]
+name = "up-mate-backend"
+version = "0.1.0"
+description = "The backend server to keep your mate up to date"
+authors = [
+    {name = "Your Name",email = "you@example.com"}
+]
+license = "MIT"
+requires-python = ">=3.9,<4"
+dependencies = ["flask (>=3.1.2,<4.0.0)", "requests (>=2.32.5,<3.0.0)"]
+
+[tool.poetry.dependencies]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
