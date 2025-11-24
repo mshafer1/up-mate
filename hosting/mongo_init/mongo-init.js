@@ -6,4 +6,5 @@ db.createUser({
     roles: [{ role: "readWrite", db: "up-mate"}]
 })
 db.createCollection("messages")
+db['messages'].createIndex({ user: 1, timestamp: 1})
 print("End adding users.")

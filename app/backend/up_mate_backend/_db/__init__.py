@@ -9,11 +9,6 @@ _db = _conn.get_database("up-mate")
 
 _collection = _db.get_collection("messages")
 
-# _collection.insert_one({
-#     "test": 5
-# })
-_collection.create_index(["user", "timestamp"])
-
 class NotFoundError(Exception):
     pass
 
