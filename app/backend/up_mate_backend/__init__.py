@@ -19,8 +19,6 @@ class Message(typing.NamedTuple):
     pain_level: float
     notes: str
 
-_keys_in_update = ["pain_level", "notes", "user"]
-
 @app.route("/")
 def index():
     return flask.render_template("index.html")
@@ -35,15 +33,16 @@ def _get_user_info(user: str) -> dict:
 def get_current():
     user = flask.request.form.get("user")
     return flask.jsonify(_get_user_info(user))
-    
+
+NO_DEFAULT = object()
 
 @app.route("/api/update", methods=["POST"])
 def update():
     data = {}
-    for field in _keys_in_update:
+    for field in Message._fields:
         value = data[field] = flask.request.form.get(field)
-        if value is None:
-            raise flask.abort(403, "Missing key " + field)
+        if value is None and Message._field_defaults.get(field, NO_DEFAULT) == NO_DEFAULT:
+            raise flask.abort(400, f'Missing value for "{field}"')
 
     up_mate_backend._db.add_status(
         Message(**data)._asdict()
