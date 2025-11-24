@@ -1,0 +1,10 @@
+services:
+  db:
+    image: mongodb/mongodb-community-server:7.0-ubi9
+    volumes:
+      - "./db:/data/db"
+      - "./mongo_init/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro"
+    ports:
+        - "127.0.0.1:27017:27017"
+    env_file:
+      ../.env

@@ -7,10 +7,17 @@ authors = [
 ]
 license = "MIT"
 requires-python = ">=3.9,<4"
-dependencies = ["flask (>=3.1.2,<4.0.0)", "requests (>=2.32.5,<3.0.0)"]
+dependencies = [
+    "flask (>=3.1.2,<4.0.0)", 
+    "requests (>=2.32.5,<3.0.0)",
+    "pymongo (>=4.15.4,<5.0.0)",
+    "python-decouple (>=3.8,<4.0)"
+]
 
 [tool.poetry.dependencies]
 
+[tool.poetry.scripts]
+up-mate-server = "up_mate_backend.__main__:main"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
