@@ -1,6 +1,52 @@
 {% set title='Home' %}
 {% extends '_base.html' %}
 
+{% block head %}
+<script>
+    function init() {
+        $('#update').on('submit', function(e) {
+            e.preventDefault();
+
+            console.log($(this), $(this).serialize())
+
+            $.post('/api/update', $(this).serialize())
+        })
+
+        $.post('/api/get', {user:"John Doe"}, function(data) {
+            console.log(data);
+            ['pain_level', 'notes'].forEach(function (v) {
+                $(`#${v}`).val(data[v])
+            })
+
+            $('#loading').hide()
+            $('#update').show()
+        })
+    }
+
+    $(window).ready(init);
+</script>
+{% endblock %}
+
 {% block body %}
     Welcome to up-mate!
+
+    <p id="loading" style="display: block;">loading...</p>
+    <form style="display: none" id="update">
+        <input type="hidden" name="user" value="John Doe"></input>
+        <p>
+            <label>How is your pain today?
+                <input id="pain_level" type="range" name="pain_level" min="0" max="10"></input>
+            </label>
+        </p>
+        
+        <p>
+            <label>Notes (optional):<br/>
+                <textarea id="notes" name="notes" resizable="true" default_rows="3"></textarea>
+            </label>
+        </p>
+        
+        <p>
+            <button class="btn btn-primary rounded-pill" type="submit">Send</button>
+        </p>
+    </form>
 {% endblock %}

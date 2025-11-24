@@ -9,10 +9,14 @@ import up_mate_backend._db
 _MODULE_DIR = pathlib.Path(__name__).parent
 
 app = flask.Flask(
-    template_folder=(_MODULE_DIR / "templates"),
+    template_folder=(_MODULE_DIR / "_templates"),
+    static_folder=(_MODULE_DIR / "_static"),
+    static_url_path="/static",
     import_name=__name__
 )
 
+
+# TODO: consider pydantic -> creates tooling for max/min controls...
 class Message(typing.NamedTuple):
     # TODO: make this configurable
     user: str
