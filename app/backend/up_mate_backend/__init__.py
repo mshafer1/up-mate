@@ -23,9 +23,11 @@ class Message(typing.NamedTuple):
     pain_level: float
     notes: str
 
-@app.route("/")
-def index():
-    return flask.render_template("index.html")
+people = {"John", "Jane"} # TODO: make this configurable
+
+@app.route("/<string:name>")
+def index(name: str):
+    return flask.render_template("index.html", me=name, mate=[o for o in (people - {name})][0])
 
 def _get_user_info(user: str) -> dict:
     try:
