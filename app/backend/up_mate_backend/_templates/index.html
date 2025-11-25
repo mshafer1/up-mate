@@ -1,0 +1,19 @@
+{% set title='Home' %}
+{% extends '_base.html' %}
+
+{% block body %}
+<p>Welcome to up-mate!</p>
+
+<p>Select your name from below:</p>
+
+<div class="">
+
+    <ul class="nav nav-fill flex-column">
+    {% for person in people %}
+    <li class="nav-item">
+        <a class="nav-link btn btn-primary rounded-pill mt-3" href="/{{ person }}">{{ person }}'s page</a>
+    </li>
+    {% endfor %}
+</ul>
+</diSv>
+{% endblock %}
