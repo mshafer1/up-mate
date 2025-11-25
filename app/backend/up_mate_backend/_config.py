@@ -12,3 +12,5 @@ DB_USER = _conf("UP_MATE_DB_USER")
 DB_PASS = _conf("UP_MATE_DB_PASS")
 
 DB_CONNECTION_STRING = f"mongodb://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}"
+
+USERS = _conf("UP_MATE_USERS_CSV", cast=lambda o: o.split(','))

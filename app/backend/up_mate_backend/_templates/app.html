@@ -4,6 +4,7 @@
 {% block head %}
 <script>
     function get_mate_info() {
+        {% for mate in mates %}
         $.post('/api/get', {user:'{{ mate }}'}, function(data) {
             console.log(data);
             ['pain_level'].forEach(function (v) {
@@ -22,7 +23,20 @@
                 $(item).html(value)
             })
             $('#mate-pain_current').html($('#mate-pain_level').val())
+        }).fail(function (err) {
+            console.log("No status for {{mate}}", err)
+            $('#mate-pain_level').val(0)
+            $('#mate-pain_current').html($('#mate-pain_level').val())
+            $('#mate-notes').html('Nothing here yet... ')
         })
+        {% endfor %}
+    }
+
+    function show_main() {
+        get_mate_info()
+
+        $('#loading').hide()
+        $('#app').show()
     }
 
     function init() {
@@ -59,12 +73,11 @@
                 $(`#${v}`).val(data[v])
             })
             $('#pain_current').html($('#pain_level').val())
-            get_mate_info()
-
-            // bootstrap.Tab.getInstance($('#me')[0]).show()
-
-            $('#loading').hide()
-            $('#app').show()
+            show_main()
+        }).fail(function (err) {
+            console.log("Could not retrieve self", err)
+            $('#pain_level').val(0)
+            show_main()
         })
     }
 
@@ -79,9 +92,11 @@
             <li class="nav-item">
                 <a class="nav-link active" data-toggle="tab" href="#me">Me</a>
             </li>
+            {% for mate in mates %}
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#mate">Mate</a>
+                <a class="nav-link" data-toggle="tab" href="#mate-{{mate}}">{{ mate }}</a>
             </li>
+            {% endfor %}
         </ul>
         <div class="tab-content">
             <div class="tab-pane fade show active" id="me">
@@ -144,7 +159,8 @@
                     </div>
                 </form>
             </div>
-            <div class="tab-pane fade" id="mate">
+            {% for mate in mates %}
+            <div class="tab-pane fade" id="mate-{{mate}}">
                  <form disabled="true">
                     <h1>{{ mate }}</h1>
                     <p>
@@ -179,11 +195,12 @@
                     
                     <p>
                         Notes:
-                        <pre><span id="mate-notes"></span></pre>
+                        <pre style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;"><span id="mate-notes"></span></pre>
                     </p>
 
                 </form>
             </div>
+            {% endfor %}
         </div>
     </div>
 

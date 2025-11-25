@@ -2,9 +2,10 @@ import pathlib
 import typing
 
 import flask
-import pymongo
+import markupsafe
 
 import up_mate_backend._db
+import up_mate_backend._config
 
 _MODULE_DIR = pathlib.Path(__name__).parent
 
@@ -23,11 +24,13 @@ class Message(typing.NamedTuple):
     pain_level: float
     notes: str
 
-people = {"John", "Jane"} # TODO: make this configurable
+people = set(up_mate_backend._config.USERS)
 
 @app.route("/<string:name>")
 def main(name: str):
-    return flask.render_template("app.html", me=name, mate=[o for o in (people - {name})][0])
+    if name not in people:
+        raise flask.abort(404, markupsafe.escape(f'User {name} not found'))
+    return flask.render_template("app.html", me=name, mates=sorted([o for o in (people - {name})]))
 
 @app.route("/")
 def index():
@@ -50,7 +53,7 @@ NO_DEFAULT = object()
 def update():
     data = {}
     for field in Message._fields:
-        value = data[field] = flask.request.form.get(field)
+        value = data[field] = markupsafe.escape(flask.request.form.get(field))
         if value is None and Message._field_defaults.get(field, NO_DEFAULT) == NO_DEFAULT:
             raise flask.abort(400, f'Missing value for "{field}"')
 
