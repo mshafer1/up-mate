@@ -1,4 +1,4 @@
-{% set title='Home' %}
+{% set title='Up-Mate - ' + me %}
 {% extends '_base.html' %}
 
 {% block head %}
@@ -68,8 +68,6 @@
 {% endblock %}
 
 {% block body %}
-    Welcome to up-mate!
-
     <p id="loading" style="display: block;">loading...</p>
     <div id="app" style="display: none">
         <ul class="nav nav-tabs">
@@ -127,6 +125,7 @@
             </div>
             <div class="tab-pane fade" id="mate">
                  <form disabled="true">
+                    <h1>{{ mate }}</h1>
                     <p>
                         <label>How is your pain today?<br/>
                             <span id="mate-pain_current" style="width: 2em; display: inline-block;">0</span> &nbsp;

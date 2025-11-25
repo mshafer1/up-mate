@@ -26,8 +26,12 @@ class Message(typing.NamedTuple):
 people = {"John", "Jane"} # TODO: make this configurable
 
 @app.route("/<string:name>")
-def index(name: str):
-    return flask.render_template("index.html", me=name, mate=[o for o in (people - {name})][0])
+def main(name: str):
+    return flask.render_template("app.html", me=name, mate=[o for o in (people - {name})][0])
+
+@app.route("/")
+def index():
+    return flask.render_template("index.html", people=sorted(people))
 
 def _get_user_info(user: str) -> dict:
     try:
