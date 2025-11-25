@@ -114,31 +114,31 @@
                             </div>
                             <div class="col-sm-10">
                                 <input style="width:100%" id="pain_level" type="range" name="pain_level" min="0" max="10" step=".5" list="tickmarks" class="form-range"></input>
+                                <datalist id="tickmarks">
+                                    <option value="0" label="0"></option>
+                                    <option value="0.5"></option>
+                                    <option value="1" label="1"></option>
+                                    <option value="1.5"></option>
+                                    <option value="2" label="2"></option>
+                                    <option value="2.5"></option>
+                                    <option value="3" label="3"></option>
+                                    <option value="3.5"></option>
+                                    <option value="4" label="4"></option>
+                                    <option value="4.5"></option>
+                                    <option value="5" label="5"></option>
+                                    <option value="5.5"></option>
+                                    <option value="6" label="6"></option>
+                                    <option value="6.5"></option>
+                                    <option value="7" label="7"></option>
+                                    <option value="7.5"></option>
+                                    <option value="8" label="8"></option>
+                                    <option value="8.5"></option>
+                                    <option value="9" label="9"></option>
+                                    <option value="9.5"></option>
+                                    <option value="10" label="T"></option>                
+                                </datalist>
                             </div>
                         </div>
-                        <datalist id="tickmarks">
-                            <option value="0" label="0"></option>
-                            <option value="0.5" label=""></option>
-                            <option value="1" label="1"></option>
-                            <option value="1.5" label=""></option>
-                            <option value="2" label="2"></option>
-                            <option value="2.5" label=""></option>
-                            <option value="3" label="3"></option>
-                            <option value="3.5" label=""></option>
-                            <option value="4" label="4"></option>
-                            <option value="4.5" label=""></option>
-                            <option value="5" label="5"></option>
-                            <option value="5.5" label=""></option>
-                            <option value="6" label="6"></option>
-                            <option value="6.5" label=""></option>
-                            <option value="7" label="7"></option>
-                            <option value="7.5" label=""></option>
-                            <option value="8" label="8"></option>
-                            <option value="8.5" label=""></option>
-                            <option value="9" label="9"></option>
-                            <option value="9.5" label=""></option>
-                            <option value="10" label="10"></option>                
-                        </datalist>
                     </p>
                     
                     <p>
@@ -165,35 +165,37 @@
             <div class="tab-pane fade" id="mate-{{mate}}">
                  <form disabled="true">
                     <h1>{{ mate }}</h1>
-                    <p>
-                        <label>How is your pain today?<br/>
+                    <div class="row">
+                        <div class="col-sm-2">
                             <span id="mate-pain_current" style="width: 2em; display: inline-block;">0</span> &nbsp;
-                            <input disabled="true" id="mate-pain_level" type="range" name="pain_level" min="0" max="10" step=".5" list="tickmarks" class="form-range"></input>
-                        </label>
-                        <datalist id="tickmarks">
+                        </div>
+                        <div class="col-sm-10">
+                            <input disabled="true" style="width:100%" id="mate-pain_level" type="range" name="pain_level" min="0" max="10" step=".5" list="mate-{{ mate }}-tickmarks" class="form-range"></input>
+                            <datalist id="mate-{{ mate }}-tickmarks">
                             <option value="0" label="0"></option>
-                            <option value="0.5" label=""></option>
+                            <option value="0.5"></option>
                             <option value="1" label="1"></option>
-                            <option value="1.5" label=""></option>
+                            <option value="1.5"></option>
                             <option value="2" label="2"></option>
-                            <option value="2.5" label=""></option>
+                            <option value="2.5"></option>
                             <option value="3" label="3"></option>
-                            <option value="3.5" label=""></option>
+                            <option value="3.5"></option>
                             <option value="4" label="4"></option>
-                            <option value="4.5" label=""></option>
+                            <option value="4.5"></option>
                             <option value="5" label="5"></option>
-                            <option value="5.5" label=""></option>
+                            <option value="5.5"></option>
                             <option value="6" label="6"></option>
-                            <option value="6.5" label=""></option>
+                            <option value="6.5"></option>
                             <option value="7" label="7"></option>
-                            <option value="7.5" label=""></option>
+                            <option value="7.5"></option>
                             <option value="8" label="8"></option>
-                            <option value="8.5" label=""></option>
+                            <option value="8.5"></option>
                             <option value="9" label="9"></option>
-                            <option value="9.5" label=""></option>
+                            <option value="9.5"></option>
                             <option value="10" label="10"></option>                
                         </datalist>
-                    </p>
+                        </div>
+                    </div>
                     
                     <p>
                         Notes:
