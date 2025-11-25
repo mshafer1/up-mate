@@ -90,12 +90,12 @@
 {% block body %}
 <div id="app" style="display: none">
         <p id="loading" style="display: block;">loading...</p>
-        <ul class="nav nav-tabs">
-            <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#me">Me</a>
+        <ul class="nav nav-dark nav-tabs">
+            <li class="nav-item border rounded-top ">
+                <a class="nav-link border active" data-toggle="tab" href="#me">Me</a>
             </li>
             {% for mate in mates %}
-            <li class="nav-item">
+            <li class="nav-item border rounded-top">
                 <a class="nav-link" data-toggle="tab" href="#mate-{{mate}}">{{ mate }}</a>
             </li>
             {% endfor %}
