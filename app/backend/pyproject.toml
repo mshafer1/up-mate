@@ -17,7 +17,7 @@ dependencies = [
 [tool.poetry.dependencies]
 
 [tool.poetry.scripts]
-up-mate-server = "up_mate_backend.__main__:main"
+up-mate-backend = "up_mate_backend.__main__:main"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
