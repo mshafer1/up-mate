@@ -15,12 +15,13 @@
     {% block head %}
     {% endblock %}
 </head>
-<body class="mx-3">
-    <h1>{{ title }}</h1>
-
-
-    {% block body %}
+<body class="container" style="width: 100%; width: 100vw;">
+    <div class="col-md-6 mx-auto">
+        <h1>Up-Mate - {{ title }}</h1>
+   
+        {% block body %}
         This is default content
-    {% endblock %}
+        {% endblock %}
+    </div>
 </body>
 </html>

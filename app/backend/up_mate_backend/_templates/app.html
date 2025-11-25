@@ -68,8 +68,8 @@
 {% endblock %}
 
 {% block body %}
-    <p id="loading" style="display: block;">loading...</p>
-    <div id="app" style="display: none">
+<div id="app" style="display: none">
+        <p id="loading" style="display: block;">loading...</p>
         <ul class="nav nav-tabs">
             <li class="nav-item">
                 <a class="nav-link active" data-toggle="tab" href="#me">Me</a>
@@ -83,10 +83,17 @@
                 <form id="update">
                     <input type="hidden" name="user" value="{{ me }}"></input>
                     <p>
-                        <label>How is your pain today?<br/>
-                            <span id="pain_current" style="width: 2em; display: inline-block;">0</span> &nbsp;
-                            <input id="pain_level" type="range" name="pain_level" min="0" max="10" step=".5" list="tickmarks" class="form-range"></input>
+                        <label for="pain_current">How is your pain today?<br/>
                         </label>
+                        <div class="row">
+
+                            <div class="col-sm-2">
+                                <span id="pain_current" style="width: 2em; display: inline-block;">0</span> &nbsp;
+                            </div>
+                            <div class="col-sm-10">
+                                <input style="width:100%" id="pain_level" type="range" name="pain_level" min="0" max="10" step=".5" list="tickmarks" class="form-range"></input>
+                            </div>
+                        </div>
                         <datalist id="tickmarks">
                             <option value="0" label="0"></option>
                             <option value="0.5" label=""></option>
@@ -113,14 +120,21 @@
                     </p>
                     
                     <p>
-                        <label>Notes (optional):<br/>
-                            <textarea id="notes" name="notes" resizable="true" default_rows="3"></textarea>
+                        <label for="notes">Notes (optional):<br/>
                         </label>
+                        <div class="row">
+
+                            <div class="col-sm-12">
+                            <textarea id="notes" name="notes" style="width: 100%" resizable="true" default_rows="3"></textarea>
+                            </div>
+                        </div>
                     </p>
                     
-                    <p>
-                        <button class="btn btn-primary rounded-pill" type="submit">Send</button>
-                    </p>
+                    <div class="row">
+
+                        <button class="btn btn-primary rounded-pill mx-auto" type="submit">Send</button>
+                    </div>
+                    
                 </form>
             </div>
             <div class="tab-pane fade" id="mate">
