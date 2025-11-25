@@ -28,10 +28,15 @@
     function init() {
         $('#update').on('submit', function(e) {
             e.preventDefault();
+            $('#submit').attr('disabled', true)
+            $('#submitMessage').html('<span class="spinning-icon">&#x21BB;</span>').show()
 
             console.log("submitting", $(this), $(this).serialize())
 
-            $.post('/api/update', $(this).serialize())
+            $.post('/api/update', $(this).serialize(), () => {
+                $('#submit').attr('disabled', false)
+                $('#submitMessage').html('<span>Saved</span>').delay(800).fadeOut()
+            })
         })
 
         $('#pain_level').on('input', function(e) {
@@ -132,9 +137,11 @@
                     
                     <div class="row">
 
-                        <button class="btn btn-primary rounded-pill mx-auto" type="submit">Send</button>
+                        <button id="submit" class="btn btn-primary rounded-pill mx-auto" type="submit">Send</button>
                     </div>
-                    
+                    <div class="row">
+                        <div id="submitMessage" class="mx-auto"></div>
+                    </div>
                 </form>
             </div>
             <div class="tab-pane fade" id="mate">
