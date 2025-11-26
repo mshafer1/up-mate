@@ -8,3 +8,9 @@ services:
         - "127.0.0.1:27017:27017"
     env_file:
       ../.env
+  app:
+    build:
+      dockerfile: hosting/Dockerfile
+      context: ..
+    # volumes:
+    #   - "../app/backend:/usr/local/app/backend"
