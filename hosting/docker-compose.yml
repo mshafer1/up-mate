@@ -1,6 +1,7 @@
 services:
   db:
     image: mongodb/mongodb-community-server:7.0-ubi9
+    container_name: image_db_${DOMAIN}
     volumes:
       - "./db:/data/db"
       - "./mongo_init/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro"
@@ -18,6 +19,7 @@ services:
     build:
       dockerfile: hosting/Dockerfile
       context: ..
+    container_name: image_app_${DOMAIN}
     env_file:
       ../.env
     environment:
