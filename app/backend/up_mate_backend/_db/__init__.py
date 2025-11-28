@@ -1,8 +1,9 @@
-import functools
 import datetime
-import pymongo
+import functools
 
+import pymongo
 from up_mate_backend import _config
+
 
 @functools.lru_cache(maxsize=1)
 def _get_mongo_collection():
@@ -11,19 +12,27 @@ def _get_mongo_collection():
     collection = db.get_collection("messages")
     return collection
 
+
 class NotFoundError(Exception):
     pass
 
+
 def add_status(info: dict):
     timestamp = datetime.datetime.now()
-    _get_mongo_collection().insert_one({**info, "timestamp":timestamp.astimezone()})
+    _get_mongo_collection().insert_one({**info, "timestamp": timestamp.astimezone()})
+
 
 def get_latest_status(user: str):
-    newest = _get_mongo_collection().find({"user": user}, {"_id": False}, sort=[('timestamp', pymongo.DESCENDING)], limit=1).to_list()
+    newest = (
+        _get_mongo_collection()
+        .find({"user": user}, {"_id": False}, sort=[("timestamp", pymongo.DESCENDING)], limit=1)
+        .to_list()
+    )
     if not newest:
         raise NotFoundError()
-    
+
     return newest[0]
+
 
 print(__name__)
 
