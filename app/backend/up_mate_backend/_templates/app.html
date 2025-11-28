@@ -9,7 +9,7 @@
             console.log(data);
             ['pain_level'].forEach(function (v) {
                 console.log("data is", data);
-                var item = `#mate-${v}`
+                var item = `#mate-{{ mate }}`
                 var value = data[v]
                 console.log(`Setting ${item} to ${value}`)
                 $(item).val(value)
@@ -17,13 +17,13 @@
 
             ['notes'].forEach(function (v) {
                 console.log("data is", data);
-                var item = `#mate-${v}`
+                var item = `#mate-{{ mate }}`
                 var value = data[v]
                 console.log(`Setting ${item} to ${value}`)
                 $(item).html(value)
             })
             var lastSaved = new Date(data['timestamp'] + "Z");
-            $(`#lastSaved-${v}`).html(`Last updated: ${lastSaved.toLocaleString()}`)
+            $(`#lastSaved-{{ mate }}`).html(`Last updated: ${lastSaved.toLocaleString()}`)
             $('#mate-pain_current').html($('#mate-pain_level').val())
         }).fail(function (err) {
             console.log("No status for {{mate}}", err)
