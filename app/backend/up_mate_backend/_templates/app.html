@@ -41,6 +41,23 @@
         $('#app').show()
     }
 
+    function get_current_info() {
+        $.post('/api/get', { user: '{{ me }}' }, function (data) {
+            console.log(data);
+            ['pain_level', 'notes'].forEach(function (v) {
+                $(`#${v}`).val(data[v])
+            })
+            $('#pain_current').html($('#pain_level').val())
+            var lastSaved = new Date(data['timestamp'] + "Z");
+            $('#lastSaved').html(`Last saved: ${lastSaved.toLocaleString()}`)
+            show_main()
+        }).fail(function (err) {
+            console.log("Could not retrieve self", err)
+            $('#pain_level').val(0)
+            show_main()
+        })
+    }
+
     function init() {
         $('#update').on('submit', function (e) {
             e.preventDefault();
@@ -52,6 +69,7 @@
             $.post('/api/update', $(this).serialize(), () => {
                 $('#submit').attr('disabled', false)
                 $('#submitMessage').html('<span>Saved</span>').delay(800).fadeOut()
+                get_current_info();
             })
         })
 
@@ -69,20 +87,7 @@
             })
         })
 
-        $.post('/api/get', { user: '{{ me }}' }, function (data) {
-            console.log(data);
-            ['pain_level', 'notes'].forEach(function (v) {
-                $(`#${v}`).val(data[v])
-            })
-            $('#pain_current').html($('#pain_level').val())
-            var lastSaved = new Date(data['timestamp'] + "Z");
-            $('#lastSaved').html(`Last saved: ${lastSaved.toLocaleString()}`)
-            show_main()
-        }).fail(function (err) {
-            console.log("Could not retrieve self", err)
-            $('#pain_level').val(0)
-            show_main()
-        })
+        get_current_info();
     }
 
     $(window).ready(init);
