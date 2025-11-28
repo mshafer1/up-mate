@@ -72,7 +72,7 @@ def update():
             raise flask.abort(400, f'Missing value for "{field}"')
 
     up_mate_backend._db.add_status(Message(**data)._asdict())
-    # TODO: publish notifications
+    up_mate_backend._notifications.send_notification(updated_user=data["user"])
     return flask.Response("ACK")
 
 
