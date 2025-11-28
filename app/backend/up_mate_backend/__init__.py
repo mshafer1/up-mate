@@ -1,3 +1,4 @@
+import logging
 import pathlib
 import typing
 
@@ -15,7 +16,11 @@ app = flask.Flask(
     static_url_path="/static",
     import_name=__name__
 )
+app.config["MAX_CONTENT_LENGTH"] = 26 * 1024 * 1024  # 26 MB
 
+logging.warning("Starting up...")
+logging.warning("Module dir: %s", _MODULE_DIR)
+logging.warning("db uri: %s", up_mate_backend._config.DB_CONNECTION_STRING)
 
 # TODO: consider pydantic -> creates tooling for max/min controls...
 class Message(typing.NamedTuple):
@@ -25,6 +30,7 @@ class Message(typing.NamedTuple):
     notes: str
 
 people = set(up_mate_backend._config.USERS)
+logging.info("Known people: %s", people)
 
 @app.route("/<string:name>")
 def main(name: str):
@@ -62,3 +68,5 @@ def update():
     )
     # TODO: publish notifications
     return flask.Response("ACK")
+
+logging.warning("Setup complete")

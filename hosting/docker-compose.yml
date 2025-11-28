@@ -4,13 +4,34 @@ services:
     volumes:
       - "./db:/data/db"
       - "./mongo_init/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro"
+    expose:
+      - "27017"
     ports:
-        - "127.0.0.1:27017:27017"
+      - "127.0.0.1:27017:27017"
     env_file:
       ../.env
+    networks:
+      - backend_network
   app:
+    depends_on:
+      - db
     build:
       dockerfile: hosting/Dockerfile
       context: ..
-    # volumes:
-    #   - "../app/backend:/usr/local/app/backend"
+    env_file:
+      ../.env
+    environment:
+      - "UP_MATE_DB_HOST=db:27017"
+    ports:
+      - "127.0.0.1:${BACKEND_PORT:-9090}:9090"
+    volumes:
+      - "./logs:/var/log/up_mate"
+      - "../app/backend:/usr/local/app/backend"
+    networks:
+      - backend_network
+      - frontend_network
+networks:
+  backend_network:
+    driver: bridge
+  frontend_network:
+    driver: bridge

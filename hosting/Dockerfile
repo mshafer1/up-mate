@@ -2,6 +2,8 @@ FROM python:3.13 AS base
 
 RUN apt-get update && apt-get upgrade -y --auto-remove
 
+RUN apt-get install -y nmap dnsutils
+
 RUN mkdir -p /usr/local/app
 WORKDIR /usr/local/app/backend
 
@@ -19,7 +21,14 @@ RUN poetry export --all-extras --without-hashes --without-urls -f requirements.t
 
 FROM base AS app
 
+
+ENTRYPOINT /bin/bash -c "uwsgi --ini /app/config/wsgi.ini"
+
 COPY --from=requirements_exported /usr/local/app/backend/requirements.txt /usr/local/app/backend
 RUN python3 -m pip install -r requirements.txt
+
+COPY ./hosting/config/wsgi.ini /app/config/wsgi.ini
+RUN mkdir --parent /var/log/up_mate
+
 COPY app /usr/local/app
-# RUN python3 -m pip install -e /usr/local/app/backend
+RUN python3 -m pip install -e /usr/local/app/backend
