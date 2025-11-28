@@ -22,7 +22,7 @@
                 console.log(`Setting ${item} to ${value}`)
                 $(item).html(value)
             })
-            var lastSaved = new Date(data['timestamp']);
+            var lastSaved = new Date(data['timestamp'] + "Z");
             $(`#lastSaved-${v}`).html(`Last updated: ${lastSaved.toLocaleString()}`)
             $('#mate-pain_current').html($('#mate-pain_level').val())
         }).fail(function (err) {
@@ -75,7 +75,7 @@
                 $(`#${v}`).val(data[v])
             })
             $('#pain_current').html($('#pain_level').val())
-            var lastSaved = new Date(data['timestamp']);
+            var lastSaved = new Date(data['timestamp'] + "Z");
             $('#lastSaved').html(`Last saved: ${lastSaved.toLocaleString()}`)
             show_main()
         }).fail(function (err) {
