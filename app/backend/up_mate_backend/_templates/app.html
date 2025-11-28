@@ -175,9 +175,6 @@
             <form disabled="true">
                 <h1>{{ mate }}</h1>
                 <div class="row">
-                    <div id="lastSaved-{{ mate }}" class=""></div>
-                </div>
-                <div class="row">
                     <div class="col-sm-2">
                         <span id="mate-pain_current" style="width: 2em; display: inline-block;">0</span> &nbsp;
                     </div>
@@ -215,6 +212,9 @@
                 <pre class="mate-notes" id="mate-notes">Loading...</pre>
                 </p>
 
+                <div class="row mt-5">
+                    <div id="lastSaved-{{ mate }}" class=""></div>
+                </div>
             </form>
         </div>
         {% endfor %}
