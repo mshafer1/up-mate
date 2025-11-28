@@ -49,10 +49,11 @@ def index():
 
 def _get_user_info(user: str) -> dict:
     try:
-        return up_mate_backend._db.get_latest_status(user=user)
+        info = up_mate_backend._db.get_latest_status(user=user)
     except up_mate_backend._db.NotFoundError:
         raise flask.abort(404, "Not Found")
-
+    info["timestamp"] = info["timestamp"].isoformat()
+    return info
 
 @app.route("/api/get", methods=["GET", "POST"])
 def get_current():
