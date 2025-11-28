@@ -9,7 +9,7 @@
             console.log(data);
             ['pain_level'].forEach(function (v) {
                 console.log("data is", data);
-                var item = `#mate-{{ mate }}`
+                var item = `#mate-${v}`
                 var value = data[v]
                 console.log(`Setting ${item} to ${value}`)
                 $(item).val(value)
@@ -17,7 +17,7 @@
 
             ['notes'].forEach(function (v) {
                 console.log("data is", data);
-                var item = `#mate-{{ mate }}`
+                var item = `#mate-${v}`
                 var value = data[v]
                 console.log(`Setting ${item} to ${value}`)
                 $(item).html(value)
