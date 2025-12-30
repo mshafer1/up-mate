@@ -2,7 +2,7 @@ import requests
 import up_mate_backend._config as config
 
 
-def send_notification(updated_user: str) -> None:
+def send_notification(updated_user: str, user_page: str) -> None:
     if not config.NOTIFY:
         return
 
@@ -14,7 +14,7 @@ def send_notification(updated_user: str) -> None:
         headers={
             f"Authorization": f"Bearer {config.NOTIFY_TOKEN}",
             "Title": f"Your mate updated their status",
-            "Click": f"{config.WEB_URL}/{updated_user}",
+            "Click": f"{config.WEB_URL}/{user_page}",
         },
     )
     response.raise_for_status()
