@@ -77,7 +77,7 @@ def update():
 
     up_mate_backend._db.add_status(Message(**data)._asdict())
     # TODO: this won't work for more then 2 people...
-    person_getting_notified = PEOPLE - {data["user"]}
+    person_getting_notified = list(PEOPLE - {data["user"]})[0]
     up_mate_backend._notifications.send_notification(updated_user=data["user"], user_page=person_getting_notified)
     return flask.Response("ACK")
 
