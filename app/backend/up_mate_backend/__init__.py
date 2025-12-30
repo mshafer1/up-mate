@@ -31,20 +31,20 @@ class Message(typing.NamedTuple):
     notes: str
 
 
-people = set(up_mate_backend._config.USERS)
-logging.info("Known people: %s", people)
+PEOPLE = set(up_mate_backend._config.USERS)
+logging.info("Known people: %s", PEOPLE)
 
 
 @app.route("/<string:name>")
 def main(name: str):
-    if name not in people:
+    if name not in PEOPLE:
         raise flask.abort(404, markupsafe.escape(f"User {name} not found"))
-    return flask.render_template("app.html", me=name, mates=sorted([o for o in (people - {name})]))
+    return flask.render_template("app.html", me=name, mates=sorted([o for o in (PEOPLE - {name})]))
 
 
 @app.route("/")
 def index():
-    return flask.render_template("index.html", people=sorted(people))
+    return flask.render_template("index.html", people=sorted(PEOPLE))
 
 
 def _get_user_info(user: str) -> dict:
