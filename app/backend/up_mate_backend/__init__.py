@@ -72,6 +72,9 @@ def update():
         if value is None and Message._field_defaults.get(field, NO_DEFAULT) == NO_DEFAULT:
             raise flask.abort(400, f'Missing value for "{field}"')
 
+    if data["user"] not in PEOPLE:
+        raise flask.abort(404, markupsafe.escape(f"User {name} not found"))
+
     up_mate_backend._db.add_status(Message(**data)._asdict())
     up_mate_backend._notifications.send_notification(updated_user=data["user"])
     return flask.Response("ACK")
