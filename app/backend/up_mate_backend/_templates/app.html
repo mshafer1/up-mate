@@ -7,9 +7,9 @@
         {% for mate in mates %}
         $.post('/api/get', { user: '{{ mate }}' }, function (data) {
             console.log(data);
-            ['pain_level'].forEach(function (v) {
+            ['pain_level', 'color_level'].forEach(function (v) {
                 console.log("data is", data);
-                var item = `#mate-${v}`
+                var item = `#mate-{{ mate }}-${v}`
                 var value = data[v]
                 console.log(`Setting ${item} to ${value}`)
                 $(item).val(value)
@@ -44,7 +44,7 @@
     function get_current_info() {
         $.post('/api/get', { user: '{{ me }}' }, function (data) {
             console.log(data);
-            ['pain_level', 'notes'].forEach(function (v) {
+            ['pain_level', 'color_level', 'notes'].forEach(function (v) {
                 $(`#${v}`).val(data[v])
             })
             $('#pain_current').html($('#pain_level').val())
@@ -150,8 +150,21 @@
                     </div>
                 </div>
                 </p>
-
-                <p>
+               <p class="mt-2">Energy level:</p>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <input style="width:100%" id="color_level" type="range" name="color_level"
+                            min="0" max="4" step="1" list="tickmarks-color" class="form-range"></input>
+                        <datalist id="tickmarks-color" style=" margin-right: -2em;">
+                            <option value="0" label="red" style="color: #b90202"></option>
+                            <option value="1" label="orange" style="color: #df7905"></option>
+                            <option value="2" label="yellow" style="color: #dfd10f"></option>
+                            <option value="3" label="yellow-green" style="color: #90d81c"></option>
+                            <option value="4" label="green" style="color: #1a970a"></option>
+                        </datalist>
+                    </div>
+                </div>
+                <p class="mt-2">
                     <label for="notes">Notes (optional):<br />
                     </label>
                 <div class="row">
@@ -182,10 +195,10 @@
                 <p>Current pain level:</p>
                 <div class="row">
                     <div class="col-sm-2">
-                        <span id="mate-pain_current" style="width: 2em; display: inline-block;">0</span> &nbsp;
+                        <span id="mate-{{ mate }}-pain_current" style="width: 2em; display: inline-block;">0</span> &nbsp;
                     </div>
                     <div class="col-sm-10">
-                        <input disabled="true" style="width:100%" id="mate-pain_level" type="range" name="pain_level"
+                        <input disabled="true" style="width:100%" id="mate-{{ mate }}-pain_level" type="range" name="pain_level"
                             min="0" max="10" step=".5" list="mate-{{ mate }}-tickmarks" class="form-range"></input>
                         <datalist id="mate-{{ mate }}-tickmarks">
                             <option value="0" label="0"></option>
@@ -213,7 +226,22 @@
                     </div>
                 </div>
 
-                <p>
+                <p class="mt-2">Energy level:</p>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <input disabled="true" style="width:100%" id="mate-{{ mate }}-color_level" type="range"
+                            min="0" max="4" step="1" list="mate-{{ mate }}-tickmarks-color" class="form-range"></input>
+                        <datalist id="mate-{{ mate }}-tickmarks-color" style=" margin-right: -2em;">
+                            <option value="0" label="red" style="color: #b90202"></option>
+                            <option value="1" label="orange" style="color: #df7905"></option>
+                            <option value="2" label="yellow" style="color: #dfd10f"></option>
+                            <option value="3" label="yellow-green" style="color: #90d81c"></option>
+                            <option value="4" label="green" style="color: #1a970a"></option>
+                        </datalist>
+                    </div>
+                </div>
+
+                <p class="mt-2">
                     Notes:
                 <pre class="mate-notes" id="mate-notes">Loading...</pre>
                 </p>
