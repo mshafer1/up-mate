@@ -28,8 +28,8 @@ class Message(typing.NamedTuple):
     # TODO: make this configurable
     user: str
     pain_level: float
-    color_level: int = 0
     notes: str
+    color_level: int = 0
 
 
 PEOPLE = set(up_mate_backend._config.USERS)
