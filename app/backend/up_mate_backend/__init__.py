@@ -56,6 +56,7 @@ def _get_user_info(user: str) -> dict:
     info["timestamp"] = info["timestamp"].isoformat()
     return info
 
+
 @app.route("/api/get", methods=["GET", "POST"])
 def get_current():
     user = flask.request.form.get("user")
