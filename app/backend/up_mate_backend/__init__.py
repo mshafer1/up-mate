@@ -77,9 +77,13 @@ def update():
         raise flask.abort(404, markupsafe.escape(f"User {name} not found"))
 
     up_mate_backend._db.add_status(Message(**data)._asdict())
-    # TODO: this won't work for more then 2 people...
-    person_getting_notified = list(PEOPLE - {data["user"]})[0]
-    up_mate_backend._notifications.send_notification(updated_user=data["user"], user_page=person_getting_notified)
+
+    updated_user = data["user"]
+    persons_getting_notified = list(PEOPLE - updated_user)
+    for person in persons_getting_notified:
+        up_mate_backend._notifications.send_notification(
+            updated_user=updated_user, user_page=person
+        )
     return flask.Response("ACK")
 
 
