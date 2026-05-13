@@ -24,10 +24,12 @@ if NOTIFY:
     NOTIFY_CHANNEL_TEMPLATE = _conf("UP_MATE_NOTIFY_CHANNEL_TEMPLATE", default="up-mate-{}")
     NOTIFY_HOST = _conf("UP_MATE_NOTIFY_HOST")
     NOTIFY_TOKEN = _conf("UP_MATE_NOTIFY_TOKEN")
-    WEB_URL = _conf("UP_MATE_WEB_URL")
+    WEB_DOMAIN_NAME = _conf("UP_MATE_DOMAIN_NAME")
+    WEB_URL_PREFIX = "https://" if _conf("UP_MATE_NOTIFICATION_LINK_USE_HTTPS", default=False, cast=bool) else "http://"
 else:
     print("Notifications are DISABLED")
     NOTIFY_CHANNEL_TEMPLATE = None
     NOTIFY_HOST = None
     NOTIFY_TOKEN = None
-    WEB_URL = None
+    WEB_DOMAIN_NAME = None
+    WEB_URL_PREFIX = None
