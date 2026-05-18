@@ -12,6 +12,9 @@ Up-Mate lets you and your circle of friends or family easily check in with each 
 - **Pain Level Tracking** – Report how you're feeling on a scale
 - **Group Notifications** – Get notified when someone in your circle updates their status
 
+:warning: Authentication not implemented :warning:
+Since the purpose of this is to share information between close mates, and that this is best run in a homelab (where it is not accessible to the broader internet), there is no authentication implemented.
+
 ## Tech Stack
 
 - **Backend**: Python/Flask
